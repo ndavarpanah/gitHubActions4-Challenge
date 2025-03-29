@@ -1,6 +1,7 @@
 name: CI/CD Pipeline
 on: [push]
-env: ARTIFACT
+env: 
+  ARTIFACT: artifact
 jobs:
   Test:
     runs-on: ubuntu-latest
