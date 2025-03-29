@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+on: [push]
+env: 
+  ARTIFACT: artifact
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Setup Python environment
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+        
+    - name: Run Python Script
+      run: python hello.py
+
+  Build:
+    needs: [Test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Python environment
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+    - name: Upload artifact for Test
+      uses: actions/upload-artifact@v4.0.0
+      with:
+        name: artifact
+        path: ./${{ env.FILE_NAME }}
